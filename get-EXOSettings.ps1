@@ -14,17 +14,18 @@ Get-TransportConfig | Format-List > "TransportConnectors.txt"
 Get-InboundConnector | Format-List > "InboundConnectors.txt"
 Get-OutboundConnector -IncludeTestModeConnectors $true | Format-List > "OutboundConnectors.txt"
 
-# Export security policies
-Get-HostedContentFilterPolicy | Export-Clixml -Path "C:\Scripts\M365getcfg\SecurityPolicies.xml"
-
-# Export unified labels
-Get-Label | Export-Clixml -Path "C:\Scripts\M365getcfg\UnifiedLabels.xml"
-
 # Export send and receive connectors settings
 Get-EXOMailboxTransportService | Export-Clixml -Path "C:\Scripts\M365getcfg\Connectors.xml"
 
-# Export security policies
-Get-EXOAntiSpamPolicy | Export-Clixml -Path "C:\Scripts\M365getcfg\SecurityPolicies.xml"
+# Export antispam policies
+Get-HostedContentFilterPolicy | Format-List > "C:\Scripts\M365getcfg\SpamPolicies.txt"
+
+# Export antiphishing policies
+# Get-AntiPhishPolicy | Format-Table Name,IsDefault,Enabled,ImpersonationProtectionState,EnableTargetedUserProtection,EnableMailboxIntelligenceProtection,EnableTargetedDomainsProtection
+Get-AntiPhishPolicy | Format-List > "C:\Scripts\M365getcfg\PhishPolicies.txt"
+
+# Export unified labels
+Get-Label | Export-Clixml -Path "C:\Scripts\M365getcfg\UnifiedLabels.xml"
 
 # Export unified labels
 Get-EXORetentionLabel | Export-Clixml -Path "C:\Scripts\M365getcfg\UnifiedLabels.xml"
